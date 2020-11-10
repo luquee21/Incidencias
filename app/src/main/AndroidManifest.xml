@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_incidences_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IncidencesApp">
-        <activity android:name=".MainActivity"></activity>
 
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".views.FormActivity" />
+
+        <activity android:name=".views.MainActivity" />
+        <activity
+            android:name=".views.SplashScreenActivity"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
