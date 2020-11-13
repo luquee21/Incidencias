@@ -9,7 +9,6 @@ import com.incidences.incidencesapp.R;
 
 
 public class FormActivity extends AppCompatActivity {
-    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +17,36 @@ public class FormActivity extends AppCompatActivity {
         Toolbar t = findViewById(R.id.toolbar);
         t.setTitle("Formulario");
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
 }
