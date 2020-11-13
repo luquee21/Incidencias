@@ -90,9 +90,9 @@
                 android:layout_width="65dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="70dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/button"
                 app:srcCompat="@android:drawable/ic_menu_call" />
 
             <ImageButton
@@ -181,11 +181,11 @@
                 android:layout_width="222dp"
                 android:layout_height="61dp"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="70dp"
                 android:layout_marginEnd="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView8"
-                app:layout_constraintTop_toBottomOf="@+id/spinner">
+                app:layout_constraintTop_toBottomOf="@+id/button">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -198,9 +198,9 @@
                 android:layout_width="216dp"
                 android:layout_height="46dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="36dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.528"
+                app:layout_constraintHorizontal_bias="0.314"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
@@ -238,8 +238,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout6"
-                android:layout_width="211dp"
-                android:layout_height="61dp"
+                android:layout_width="212dp"
+                android:layout_height="69dp"
                 android:layout_marginTop="25dp"
                 android:hint="Lugar"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -248,7 +248,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
@@ -270,6 +270,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView9"
                 app:srcCompat="@android:drawable/ic_menu_help" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Añadir opción"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.569"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

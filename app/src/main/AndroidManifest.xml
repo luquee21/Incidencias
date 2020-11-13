@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IncidencesApp">
 
-        <activity android:name=".views.FormActivity" />
+        <activity
+            android:name=".views.FormActivity"
+            android:parentActivityName=".views.MainActivity" />
 
         <activity android:name=".views.MainActivity" />
         <activity
