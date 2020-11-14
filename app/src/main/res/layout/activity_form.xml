@@ -56,12 +56,12 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="32dp"
                 android:text="Crear incidencia"
                 android:textSize="28dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.426"
+                app:layout_constraintHorizontal_bias="0.434"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,7 +80,7 @@
                 android:layout_width="65dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5"
                 app:srcCompat="@android:drawable/ic_menu_more" />
@@ -119,7 +119,7 @@
                 android:id="@+id/switch1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
+                android:layout_marginTop="56dp"
                 android:text="Incidencia resuelta"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -178,8 +178,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout4"
-                android:layout_width="222dp"
-                android:layout_height="61dp"
+                android:layout_width="218dp"
+                android:layout_height="62dp"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="70dp"
                 android:layout_marginEnd="40dp"
@@ -195,19 +195,19 @@
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="216dp"
-                android:layout_height="46dp"
+                android:layout_width="217dp"
+                android:layout_height="54dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.314"
+                app:layout_constraintHorizontal_bias="0.449"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout5"
-                android:layout_width="261dp"
-                android:layout_height="161dp"
+                android:layout_width="221dp"
+                android:layout_height="186dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="15dp"
@@ -223,8 +223,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
-                android:layout_width="256dp"
-                android:layout_height="59dp"
+                android:layout_width="217dp"
+                android:layout_height="64dp"
                 android:layout_marginTop="35dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView9"
@@ -266,7 +266,7 @@
                 android:layout_width="65dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="110dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView9"
                 app:srcCompat="@android:drawable/ic_menu_help" />

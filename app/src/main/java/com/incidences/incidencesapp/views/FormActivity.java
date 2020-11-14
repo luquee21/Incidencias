@@ -21,13 +21,13 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "Dentro de oncreate");
+        Log.d(TAG, "Inside onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
         formPresenter = new FormPresenter(this);
         save = findViewById(R.id.save);
         save.setOnClickListener(v -> {
-            Log.d(TAG, "Boton guardado click");
+            Log.d(TAG, "Click save button pressed");
             formPresenter.onClickSaveButton();
         });
         Toolbar t = findViewById(R.id.toolbar);
@@ -41,7 +41,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Log.d(TAG, "Pulsado botón up");
+                Log.d(TAG, "Up button pressed");
                 finish();
                 return true;
             default:
@@ -51,44 +51,52 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     @Override
     public void onBackPressed() {
-        Log.d(TAG, "Pulsado botón atras");
+        Log.d(TAG, "Back button pressed");
         finish();
         super.onBackPressed();
     }
 
     @Override
     protected void onRestart() {
+        Log.d(TAG, "Inside onRestart");
         super.onRestart();
     }
 
     @Override
     protected void onStop() {
+        Log.d(TAG, "Inside onStop");
         super.onStop();
     }
 
     @Override
     protected void onResume() {
+        Log.d(TAG, "Inside onResume");
         super.onResume();
     }
 
     @Override
     protected void onPause() {
+        Log.d(TAG, "Inside onPause");
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
+        Log.d(TAG, "Inside OnDestroy");
         super.onDestroy();
     }
 
     @Override
     protected void onStart() {
+        Log.d(TAG, "Inside OnStart");
         super.onStart();
     }
 
 
+
     @Override
     public void finishFormActivity() {
+        Log.d(TAG, "Finishing FormActivity");
         finish();
     }
 }

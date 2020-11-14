@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
     private final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "Dentro de oncreate");
+        Log.d(TAG, "Inside oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar t = findViewById(R.id.maintoolbar);
@@ -29,44 +29,51 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
     }
 
     @Override
+    public void onBackPressed() {
+        Log.d(TAG, "Button back pressed");
+        finish();
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onRestart() {
-        Log.d(TAG, "Dentro de onrestart");
+        Log.d(TAG, "Inside onRestart");
         super.onRestart();
     }
 
     @Override
     protected void onStop() {
-        Log.d(TAG, "Dentro de onstop");
+        Log.d(TAG, "Inside onStop");
         super.onStop();
     }
 
     @Override
     protected void onResume() {
-        Log.d(TAG, "Dentro de onresume");
+        Log.d(TAG, "Inside onResume");
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        Log.d(TAG, "Dentro de onpause");
+        Log.d(TAG, "Inside onPause");
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "Dentro de ondestroy");
+        Log.d(TAG, "Inside OnDestroy");
         super.onDestroy();
     }
 
     @Override
     protected void onStart() {
-        Log.d(TAG, "Dentro de onstart");
+        Log.d(TAG, "Inside OnStart");
         super.onStart();
     }
 
     @Override
     public void startFormActivity() {
-        Log.d(TAG, "Dentro de la función para pasar a la actividad formulario");
+        Log.d(TAG, "Inside startFormActivity to launch FormActivity");
         Intent i = new Intent(getApplicationContext(), FormActivity.class);
         startActivity(i);
     }
