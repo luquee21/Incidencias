@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">Buscar</string>
+    <string name="sort">Ordenar</string>
+    <string name="settings">Ajustes</string>
+    <string name="help">Ayuda</string>
+    <string name="about">Sobre mi</string>
+    <string name="create_incidence">Crear incidencia</string>
+    <string name="issue_resolved">Incidencia resulta</string>
+    <string name="save">Guardar</string>
+    <string name="delete">Borrar</string>
+    <string name="empty">Vaciar</string>
+    <string name="name_of_incidence">Nombre de la incidencia</string>
+    <string name="phone">Teléfono</string>
+    <string name="write_incidence">Escribir incidencia</string>
+    <string name="date">Fecha</string>
+    <string name="site">Lugar</string>
+    <string name="add_option">Añadir opción</string>
+    <string name="show_10_result">Mostrando 10 resultados</string>
+    <string name="show_5_results">Mostrando 5 resultados</string>
+    <string name="incidence">Incidencia</string>
+    <string name="severity">Gravedad: leve</string>
+</resources>

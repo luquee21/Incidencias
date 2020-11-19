@@ -3,7 +3,11 @@ package com.incidences.incidencesapp.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,11 +25,33 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar t = findViewById(R.id.maintoolbar);
-        t.setTitle("Listado de incidencias");
+        setSupportActionBar(t);
+        getSupportActionBar().setTitle("Listado de incidencias");
         mainPresenter = new MainPresenter(this);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> mainPresenter.onClickFloatingButton());
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about:
+                mainPresenter.onClickAbout();
+                break;
+            case R.id.search:
+                mainPresenter.onClickSearch();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -76,5 +102,20 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
         Log.d(TAG, "Inside startFormActivity to launch FormActivity");
         Intent i = new Intent(getApplicationContext(), FormActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    public void startAboutActivity() {
+        Log.d(TAG, "Inside startAboutActivity to launch AboutActivity");
+        Intent i = new Intent(getApplicationContext(), AboutActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public void startSearchActivity() {
+        Log.d(TAG, "Inside startSearchActivity to launch SearchActivity");
+        Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivity(i);
+
     }
 }

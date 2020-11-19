@@ -13,4 +13,14 @@ public class MainPresenter implements IMainInterface.Presenter {
     public void onClickFloatingButton() {
         view.startFormActivity();
     }
+
+    @Override
+    public void onClickAbout() {
+        view.startAboutActivity();
+    }
+
+    @Override
+    public void onClickSearch() {
+        view.startSearchActivity();
+    }
 }

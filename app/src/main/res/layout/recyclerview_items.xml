@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="337dp"
         android:layout_height="31dp"
-        android:text="Incidencia"
+        android:text="@string/incidence"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="73dp" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/textView3"
         android:layout_width="337dp"
         android:layout_height="31dp"
-        android:text="Gravedad: Leve"
+        android:text="@string/severity"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="72dp" />
 
