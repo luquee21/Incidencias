@@ -1,12 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">IncidencesApp</string>
     <string name="title_activity_form" translatable="false">FormActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label" translatable="false">First Fragment</string>
-    <string name="second_fragment_label" translatable="false">Second Fragment</string>
-    <string name="next" translatable="false">Next</string>
-    <string name="previous" translatable="false">Previous</string>
-
     <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
     <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="search">Search</string>
@@ -29,4 +23,8 @@
     <string name="show_5_results">Show 5 results</string>
     <string name="incidence">Incidence</string>
     <string name="severity">Severity: low</string>
+    <string name="contact">Contact:</string>
+    <string name="developer_name">Miguel Ángel Luque Triana</string>
+    <string name="email">amluque@iesfranciscodelosrios.es</string>
+    <string name="developed_by">Developed by:</string>
 </resources>

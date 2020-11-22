@@ -2,6 +2,8 @@ package com.incidences.incidencesapp.views;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 
@@ -12,6 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.incidences.incidencesapp.R;
 import com.incidences.incidencesapp.interfaces.IFormInterface;
 import com.incidences.incidencesapp.presenters.FormPresenter;
+
+import java.util.Objects;
 
 
 public class FormActivity extends AppCompatActivity implements IFormInterface.View {
@@ -32,9 +36,16 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         });
         Toolbar t = findViewById(R.id.toolbar);
         setSupportActionBar(t);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Formulario");
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.form_menu, menu);
+        return true;
     }
 
     @Override
@@ -43,10 +54,12 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
             case android.R.id.home:
                 Log.d(TAG, "Up button pressed");
                 finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                break;
+            case R.id.helpform:
+                break;
+
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
