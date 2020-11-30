@@ -16,9 +16,12 @@ import com.incidences.incidencesapp.R;
 import com.incidences.incidencesapp.interfaces.IMainInterface;
 import com.incidences.incidencesapp.presenters.MainPresenter;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements IMainInterface.View {
     private IMainInterface.Presenter mainPresenter;
     private final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "Inside oncreate");
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
         setContentView(R.layout.activity_main);
         Toolbar t = findViewById(R.id.maintoolbar);
         setSupportActionBar(t);
-        getSupportActionBar().setTitle("Listado de incidencias");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Listado de incidencias");
         mainPresenter = new MainPresenter(this);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> mainPresenter.onClickFloatingButton());

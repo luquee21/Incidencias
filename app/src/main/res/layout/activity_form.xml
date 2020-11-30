@@ -96,7 +96,7 @@
                 app:srcCompat="@android:drawable/ic_menu_call" />
 
             <ImageButton
-                android:id="@+id/image"
+                android:id="@+id/photo"
                 android:layout_width="65dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="50dp"
@@ -106,13 +106,13 @@
                 app:srcCompat="@android:drawable/ic_menu_gallery" />
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/dateimage"
                 android:layout_width="65dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/photo"
                 app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
             <Switch
@@ -158,7 +158,7 @@
                 android:text="@string/empty"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintStart_toEndOf="@+id/photo"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -227,10 +227,11 @@
                 android:layout_height="59dp"
                 android:layout_marginTop="35dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintStart_toEndOf="@+id/dateimage"
                 app:layout_constraintTop_toBottomOf="@+id/empty">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dateform"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/date" />
@@ -268,7 +269,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="80dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView9"
+                app:layout_constraintTop_toBottomOf="@+id/dateimage"
                 app:srcCompat="@android:drawable/ic_menu_help" />
 
             <Button

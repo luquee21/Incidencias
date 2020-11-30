@@ -13,4 +13,14 @@ public class FormPresenter implements IFormInterface.Presenter {
     public void onClickSaveButton() {
         view.finishFormActivity();
     }
+
+    @Override
+    public void onClickDeleteButton() {
+        view.showDialogDeleteForm();
+    }
+
+    @Override
+    public void onClickDateImageButton() {
+        view.showDate();
+    }
 }

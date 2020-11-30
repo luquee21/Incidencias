@@ -24,4 +24,7 @@
     <string name="developer_name">Miguel Ángel Luque Triana</string>
     <string name="email">amluque@iesfranciscodelosrios.es</string>
     <string name="developed_by">Desarrollado por:</string>
+    <string name="dialog_delete_form">¿Esta seguro que desea eliminar el formulario?</string>
+    <string name="yes">yes</string>
+    <string name="cancel">cancel</string>
 </resources>
