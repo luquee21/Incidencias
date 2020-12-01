@@ -85,7 +85,7 @@
         app:srcCompat="@android:drawable/ic_menu_more" />
 
     <ImageView
-        android:id="@+id/imageView14"
+        android:id="@+id/imageDate"
         android:layout_width="55dp"
         android:layout_height="45dp"
         android:layout_marginTop="24dp"

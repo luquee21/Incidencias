@@ -39,11 +39,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     final int month = c.get(Calendar.MONTH);
     final int day = c.get(Calendar.DAY_OF_MONTH);
     final int year = c.get(Calendar.YEAR);
+    private ArrayAdapter<String> adapter;
     private final String bar = "/";
     private final String zero = "0";
     private Button save, delete;
     private ImageView dateimage;
-    private TextInputEditText dateform;
     private ArrayList<String> options;
     private Button addOptions;
     private Spinner spinner;
@@ -65,22 +65,25 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         spinner();
         binds();
         listeners();
-        comprobationData();
+        checkData();
 
 
     }
 
     private void spinner() {
+        Log.d(TAG, "creating spinner...");
         spinner = findViewById(R.id.spinner);
         iEntity = new IncidencesEntity();
         options = new ArrayList<>();
         options.add(getString(R.string.severe));
         options.add(getString(R.string.moderate));
         options.add(getString(R.string.low));
-        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options));
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
+        spinner.setAdapter(adapter);
     }
 
     private void binds() {
+        Log.d(TAG, "binding...");
         save = findViewById(R.id.save);
         delete = findViewById(R.id.delete);
         addOptions = findViewById(R.id.addOptions);
@@ -97,11 +100,12 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         phoneTIET = findViewById(R.id.phoneTIET);
     }
 
-    private void comprobationData() {
+    private void checkData() {
+        Log.d(TAG, "checking data...");
         nameTIET.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Log.d(TAG, "Exit name EditText");
-                int result = iEntity.setName(nameTIET.getText().toString());
+                int result = iEntity.setName(Objects.requireNonNull(nameTIET.getText()).toString());
                 if (result == 0) {
                     nameTIL.setError("");
                 } else if (result == 1) {
@@ -117,7 +121,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         siteTIET.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Log.d(TAG, "Exit site EditText");
-                int result = iEntity.setName(siteTIET.getText().toString());
+                int result = iEntity.setSite(Objects.requireNonNull(siteTIET.getText()).toString());
                 if (result == 0) {
                     siteTIL.setError("");
                 } else if (result == 1) {
@@ -133,7 +137,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         dateTIET.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Log.d(TAG, "Exit date EditText");
-                int result = iEntity.setName(dateTIET.getText().toString());
+                int result = iEntity.setDate(Objects.requireNonNull(dateTIET.getText()).toString());
                 if (result == 0) {
                     dateTIL.setError("");
                 } else if (result == 1) {
@@ -145,9 +149,42 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
                 Log.d(TAG, "Input date EditText");
             }
         });
+
+        descriptionTIET.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                Log.d(TAG, "Exit description EditText");
+                int result = iEntity.setDescription(Objects.requireNonNull(descriptionTIET.getText()).toString());
+                if (result == 0) {
+                    descriptionTIL.setError("");
+                } else {
+                    descriptionTIL.setError(getString(R.string.description_cant_empty));
+                }
+            } else {
+                Log.d(TAG, "Input description EditText");
+            }
+        });
+
+        phoneTIET.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                Log.d(TAG, "Exit phone EditText");
+                int result = iEntity.setPhone(Objects.requireNonNull(phoneTIET.getText()).toString());
+                if (result == 0) {
+                    phoneTIL.setError("");
+                } else if (result == 1) {
+                    phoneTIL.setError(getString(R.string.phone_cant_empty));
+                } else if (result == 2) {
+                    phoneTIL.setError(getString(R.string.phone_only_numbers));
+                } else {
+                    phoneTIL.setError(getString(R.string.phone_too_long));
+                }
+            } else {
+                Log.d(TAG, "Input phone EditText");
+            }
+        });
     }
 
     private void listeners() {
+        Log.d(TAG, "checking listeners...");
         save.setOnClickListener(v -> {
             Log.d(TAG, "Click save button pressed");
             formPresenter.onClickSaveButton();
@@ -306,13 +343,14 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     @Override
     public void addOptionsToSpinner(String text) {
-        options.add(text);
-        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options));
-
+        Log.d(TAG, "option added to spinner...");
+        adapter.add(text);
+        spinner.setSelection(adapter.getPosition(text));
     }
 
     @Override
     public void showErrorAddTextToSpinner() {
+        Log.d(TAG, "showing error adding option to spinner...");
         Toast.makeText(this, R.string.text_cant_be_empty, Toast.LENGTH_SHORT).show();
     }
 }

@@ -17,13 +17,19 @@ public class IncidencesEntity {
         return name;
     }
 
+    /**
+     * error 0 = ok
+     * error 1 = name empty
+     * error 2 = name can only contain letters and/or numbers
+     */
+
     public int setName(String name) {
         int error = 0;
         if (name != null && name.length() > 0) {
-            Pattern pat = Pattern.compile("[A-Za-zÑñ0-9]+");
-            Matcher mat = pat.matcher(name);
+            Pattern pat = Pattern.compile("[A-Za-zÑñ0-9\\s]+");
+            Matcher mat = pat.matcher(name.trim());
             if (mat.matches()) {
-                this.name = name.toUpperCase();
+                this.name = name;
             } else {
                 error = 2;
             }
@@ -37,11 +43,16 @@ public class IncidencesEntity {
         return site;
     }
 
+    /**
+     * error 0 = ok
+     * error 1 = site empty
+     * error 2 = site can only contain letters and/or numbers
+     */
     public int setSite(String site) {
         int error = 0;
         if (site != null && site.length() > 0) {
-            Pattern pat = Pattern.compile("[A-Za-zÑñ0-9]+");
-            Matcher mat = pat.matcher(site);
+            Pattern pat = Pattern.compile("[A-Za-zÑñ0-9\\s]+");
+            Matcher mat = pat.matcher(site.trim());
             if (mat.matches()) {
                 this.site = site;
             } else {
@@ -57,13 +68,22 @@ public class IncidencesEntity {
         return phone;
     }
 
+
+    /**
+     * error 0 = ok
+     * error 1 = phone empty
+     * error 2 = phone can only contain numbers
+     * error 3 = phone can only contain 9 digits
+     */
     public int setPhone(String phone) {
         int error = 0;
         if (phone != null && phone.length() > 0) {
-            Pattern pat = Pattern.compile("[0-9]+");
+            Pattern pat = Pattern.compile("\\d{9}");
             Matcher mat = pat.matcher(phone);
             if (mat.matches()) {
                 this.phone = phone;
+            } else if (phone.length() != 9) {
+                error = 3;
             } else {
                 error = 2;
             }
@@ -77,16 +97,14 @@ public class IncidencesEntity {
         return description;
     }
 
+    /**
+     * error 0 = ok
+     * error 1 = description empty
+     */
     public int setDescription(String description) {
         int error = 0;
         if (description != null && description.length() > 0) {
-            Pattern pat = Pattern.compile("[A-Za-zÑñ0-9]+");
-            Matcher mat = pat.matcher(description);
-            if (mat.matches()) {
-                this.description = description.toUpperCase();
-            } else {
-                error = 2;
-            }
+            this.description = description;
         } else {
             error = 1;
         }

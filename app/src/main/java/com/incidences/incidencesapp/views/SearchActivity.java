@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     private final String zero = "0";
     private ISearchInterface.Presenter presenter;
     private Button search;
+    private ImageView dateImage;
     private EditText date;
     private ArrayList<String> options;
 
@@ -41,20 +43,37 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
         Log.d(TAG, "Inside oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        search = findViewById(R.id.buttonsearch);
-        date = findViewById(R.id.date);
         presenter = new SearchPresenter(this);
         Toolbar t = findViewById(R.id.toolbarsearch);
         setSupportActionBar(t);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.search);
+        binds();
+        spinner();
+        listeners();
+
+    }
+
+    private void binds() {
+        Log.d(TAG, "binding data...");
+        search = findViewById(R.id.buttonsearch);
+        dateImage = findViewById(R.id.imageDate);
+        date = findViewById(R.id.date);
+    }
+
+    private void spinner() {
+        Log.d(TAG, "creating spinner...");
         Spinner spinner = findViewById(R.id.spinner2);
         options = new ArrayList<>();
         options.add(getString(R.string.severe));
         options.add(getString(R.string.moderate));
         options.add(getString(R.string.low));
         spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options));
-        date.setOnClickListener(v -> {
+    }
+
+    private void listeners() {
+        Log.d(TAG, "checking listeners...");
+        dateImage.setOnClickListener(v -> {
             presenter.onClickDate();
         });
         search.setOnClickListener(v -> {
@@ -80,8 +99,10 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.helpsearch:
+                Log.d(TAG, "MenuItem help pressed");
                 break;
             case android.R.id.home:
+                Log.d(TAG, "Up button pressed");
                 finish();
                 break;
 
@@ -127,11 +148,13 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
 
     @Override
     public void finishSearchActivity() {
+        Log.d(TAG, "finishing search activity...");
         finish();
     }
 
     @Override
     public void showDate() {
+        Log.d(TAG, "showing date...");
         DatePickerDialog datePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
             final int actualMonth = month + 1;
             String dayFormated = (dayOfMonth < 10) ? zero + dayOfMonth : String.valueOf(dayOfMonth);

@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">IncidencesApp</string>
-    <string name="title_activity_form" translatable="false">FormActivity</string>
-    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
-    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="search">Search</string>
     <string name="sort">Sort</string>
     <string name="settings">Settings</string>
@@ -30,18 +27,22 @@
     <string name="dialog_delete_form">¿Esta seguro que desea eliminar el formulario?</string>
     <string name="yes">yes</string>
     <string name="cancel">cancel</string>
-    <string name="about_me">about</string>
+    <string name="about_me">About me</string>
     <string name="form">Form</string>
     <string name="severe">Severe</string>
     <string name="moderate">Moderate</string>
     <string name="low">Low</string>
     <string name="add">Add</string>
-    <string name="show_dialog_add_options">Introduce la opcion a añadir</string>
-    <string name="text_cant_be_empty">El texto no puede estar vacío</string>
+    <string name="show_dialog_add_options">Add option</string>
+    <string name="text_cant_be_empty">Text can\'t be empty</string>
     <string name="name_only_letter_numbers">Name, can only contain letters and/or numbers</string>
-    <string name="name_cant_empty">Name, can´t be empty</string>
+    <string name="name_cant_empty">Name, can\'t be empty</string>
     <string name="site_cant_empty">Site can\'t be empty</string>
     <string name="site_only_letter_numbers">Site can only contains letters and/or numbers</string>
     <string name="date_cant_empty">Date can\'t be empty</string>
-    <string name="date_error_formated">Bad date form</string>
+    <string name="date_error_formated">Bad date form. Format:(dd/mm/yyyy)</string>
+    <string name="description_cant_empty">Description can\'t be empty</string>
+    <string name="phone_cant_empty">Phone can\'t be empty</string>
+    <string name="phone_only_numbers">Phone must only contain numbers</string>
+    <string name="phone_too_long">Phone must only contain 9 digits</string>
 </resources>
