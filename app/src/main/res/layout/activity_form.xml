@@ -92,7 +92,7 @@
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="25dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button"
+                app:layout_constraintTop_toBottomOf="@+id/addOptions"
                 app:srcCompat="@android:drawable/ic_menu_call" />
 
             <ImageButton
@@ -131,23 +131,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTIL" />
 
             <Button
                 android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTIL"
                 app:layout_constraintVertical_bias="0.0" />
 
             <Button
@@ -159,10 +159,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintStart_toEndOf="@+id/photo"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+                app:layout_constraintTop_toBottomOf="@+id/phoneTIL" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/prueba"
+                android:id="@+id/nameTIL"
                 android:layout_width="212dp"
                 android:layout_height="59dp"
                 android:layout_marginTop="35dp"
@@ -171,13 +171,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/switch1">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameTIET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name_of_incidence" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout4"
+                android:id="@+id/phoneTIL"
                 android:layout_width="222dp"
                 android:layout_height="61dp"
                 android:layout_marginStart="45dp"
@@ -185,9 +186,10 @@
                 android:layout_marginEnd="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView8"
-                app:layout_constraintTop_toBottomOf="@+id/button">
+                app:layout_constraintTop_toBottomOf="@+id/addOptions">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneTIET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/phone" />
@@ -202,10 +204,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.471"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+                app:layout_constraintTop_toBottomOf="@+id/siteTIL" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout5"
+                android:id="@+id/descriptionTIL"
                 android:layout_width="261dp"
                 android:layout_height="161dp"
                 android:layout_marginStart="15dp"
@@ -214,15 +216,17 @@
                 android:hint="@string/write_incidence"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView11"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+                app:layout_constraintTop_toBottomOf="@+id/dateTIL">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionTIET"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/dateTIL"
                 android:layout_width="256dp"
                 android:layout_height="59dp"
                 android:layout_marginTop="35dp"
@@ -231,23 +235,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/empty">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/dateform"
+                    android:id="@+id/dateTIET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/date" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout6"
+                android:id="@+id/siteTIL"
                 android:layout_width="211dp"
                 android:layout_height="61dp"
                 android:layout_marginTop="25dp"
                 android:hint="@string/site"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/prueba">
+                app:layout_constraintTop_toBottomOf="@+id/nameTIL">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/siteTIET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -273,7 +278,7 @@
                 app:srcCompat="@android:drawable/ic_menu_help" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/addOptions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

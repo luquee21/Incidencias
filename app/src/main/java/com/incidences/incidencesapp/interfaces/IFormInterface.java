@@ -8,6 +8,12 @@ public interface IFormInterface {
         void showDialogDeleteForm();
 
         void showDate();
+
+        void showDialogAddOptions();
+
+        void addOptionsToSpinner(String text);
+
+        void showErrorAddTextToSpinner();
     }
 
     interface Presenter {
@@ -16,5 +22,9 @@ public interface IFormInterface {
         void onClickDeleteButton();
 
         void onClickDateImageButton();
+
+        void onClickAddOptions();
+
+        void onAddOptions(String option);
     }
 }

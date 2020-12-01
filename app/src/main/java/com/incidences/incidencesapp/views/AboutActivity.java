@@ -15,12 +15,13 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "Inside oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         Toolbar t = findViewById(R.id.toolbarabout);
         setSupportActionBar(t);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Sobre mi");
+        getSupportActionBar().setTitle(R.string.about_me);
     }
 
     @Override

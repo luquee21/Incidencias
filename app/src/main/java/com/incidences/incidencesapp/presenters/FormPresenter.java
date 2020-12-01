@@ -23,4 +23,19 @@ public class FormPresenter implements IFormInterface.Presenter {
     public void onClickDateImageButton() {
         view.showDate();
     }
+
+    @Override
+    public void onClickAddOptions() {
+        view.showDialogAddOptions();
+    }
+
+
+    @Override
+    public void onAddOptions(String option) {
+        if (option != null && !option.isEmpty()) {
+            view.addOptionsToSpinner(option);
+        } else {
+            view.showErrorAddTextToSpinner();
+        }
+    }
 }

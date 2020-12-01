@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import com.incidences.incidencesapp.R;
 import com.incidences.incidencesapp.interfaces.ISearchInterface;
 import com.incidences.incidencesapp.presenters.SearchPresenter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -31,6 +34,7 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     private ISearchInterface.Presenter presenter;
     private Button search;
     private EditText date;
+    private ArrayList<String> options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,13 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
         Toolbar t = findViewById(R.id.toolbarsearch);
         setSupportActionBar(t);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Buscar");
+        getSupportActionBar().setTitle(R.string.search);
+        Spinner spinner = findViewById(R.id.spinner2);
+        options = new ArrayList<>();
+        options.add(getString(R.string.severe));
+        options.add(getString(R.string.moderate));
+        options.add(getString(R.string.low));
+        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options));
         date.setOnClickListener(v -> {
             presenter.onClickDate();
         });

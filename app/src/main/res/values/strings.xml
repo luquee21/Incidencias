@@ -30,4 +30,18 @@
     <string name="dialog_delete_form">¿Esta seguro que desea eliminar el formulario?</string>
     <string name="yes">yes</string>
     <string name="cancel">cancel</string>
+    <string name="about_me">about</string>
+    <string name="form">Form</string>
+    <string name="severe">Severe</string>
+    <string name="moderate">Moderate</string>
+    <string name="low">Low</string>
+    <string name="add">Add</string>
+    <string name="show_dialog_add_options">Introduce la opcion a añadir</string>
+    <string name="text_cant_be_empty">El texto no puede estar vacío</string>
+    <string name="name_only_letter_numbers">Name, can only contain letters and/or numbers</string>
+    <string name="name_cant_empty">Name, can´t be empty</string>
+    <string name="site_cant_empty">Site can\'t be empty</string>
+    <string name="site_only_letter_numbers">Site can only contains letters and/or numbers</string>
+    <string name="date_cant_empty">Date can\'t be empty</string>
+    <string name="date_error_formated">Bad date form</string>
 </resources>

@@ -3,12 +3,18 @@ package com.incidences.incidencesapp.views;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,10 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.incidences.incidencesapp.R;
 import com.incidences.incidencesapp.interfaces.IFormInterface;
+import com.incidences.incidencesapp.models.IncidencesEntity;
 import com.incidences.incidencesapp.presenters.FormPresenter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -35,7 +44,13 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     private Button save, delete;
     private ImageView dateimage;
     private TextInputEditText dateform;
+    private ArrayList<String> options;
+    private Button addOptions;
+    private Spinner spinner;
     private IFormInterface.Presenter formPresenter;
+    private IncidencesEntity iEntity;
+    private TextInputEditText nameTIET, siteTIET, dateTIET, descriptionTIET, phoneTIET;
+    private TextInputLayout nameTIL, siteTIL, dateTIL, descriptionTIL, phoneTIL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +60,94 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         Toolbar t = findViewById(R.id.toolbar);
         setSupportActionBar(t);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Formulario");
+        getSupportActionBar().setTitle(R.string.form);
         formPresenter = new FormPresenter(this);
+        spinner();
+        binds();
+        listeners();
+        comprobationData();
+
+
+    }
+
+    private void spinner() {
+        spinner = findViewById(R.id.spinner);
+        iEntity = new IncidencesEntity();
+        options = new ArrayList<>();
+        options.add(getString(R.string.severe));
+        options.add(getString(R.string.moderate));
+        options.add(getString(R.string.low));
+        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options));
+    }
+
+    private void binds() {
         save = findViewById(R.id.save);
         delete = findViewById(R.id.delete);
-        dateform = findViewById(R.id.dateform);
+        addOptions = findViewById(R.id.addOptions);
         dateimage = findViewById(R.id.dateimage);
+        nameTIL = findViewById(R.id.nameTIL);
+        nameTIET = findViewById(R.id.nameTIET);
+        siteTIL = findViewById(R.id.siteTIL);
+        siteTIET = findViewById(R.id.siteTIET);
+        dateTIL = findViewById(R.id.dateTIL);
+        dateTIET = findViewById(R.id.dateTIET);
+        descriptionTIL = findViewById(R.id.descriptionTIL);
+        descriptionTIET = findViewById(R.id.descriptionTIET);
+        phoneTIL = findViewById(R.id.phoneTIL);
+        phoneTIET = findViewById(R.id.phoneTIET);
+    }
+
+    private void comprobationData() {
+        nameTIET.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                Log.d(TAG, "Exit name EditText");
+                int result = iEntity.setName(nameTIET.getText().toString());
+                if (result == 0) {
+                    nameTIL.setError("");
+                } else if (result == 1) {
+                    nameTIL.setError(getString(R.string.name_cant_empty));
+                } else {
+                    nameTIL.setError(getString(R.string.name_only_letter_numbers));
+                }
+            } else {
+                Log.d(TAG, "Input name EditText");
+            }
+        });
+
+        siteTIET.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                Log.d(TAG, "Exit site EditText");
+                int result = iEntity.setName(siteTIET.getText().toString());
+                if (result == 0) {
+                    siteTIL.setError("");
+                } else if (result == 1) {
+                    siteTIL.setError(getString(R.string.site_cant_empty));
+                } else {
+                    siteTIL.setError(getString(R.string.site_only_letter_numbers));
+                }
+            } else {
+                Log.d(TAG, "Input site EditText");
+            }
+        });
+
+        dateTIET.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                Log.d(TAG, "Exit date EditText");
+                int result = iEntity.setName(dateTIET.getText().toString());
+                if (result == 0) {
+                    dateTIL.setError("");
+                } else if (result == 1) {
+                    dateTIL.setError(getString(R.string.date_cant_empty));
+                } else {
+                    dateTIL.setError(getString(R.string.date_error_formated));
+                }
+            } else {
+                Log.d(TAG, "Input date EditText");
+            }
+        });
+    }
+
+    private void listeners() {
         save.setOnClickListener(v -> {
             Log.d(TAG, "Click save button pressed");
             formPresenter.onClickSaveButton();
@@ -63,7 +160,10 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
             Log.d(TAG, "Click delete button pressed");
             formPresenter.onClickDeleteButton();
         });
-
+        addOptions.setOnClickListener(v -> {
+            Log.d(TAG, "Click addoptions button pressed");
+            formPresenter.onClickAddOptions();
+        });
     }
 
     @Override
@@ -81,6 +181,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
                 finish();
                 break;
             case R.id.helpform:
+                Log.d(TAG, "Help pressed");
                 break;
 
         }
@@ -139,6 +240,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     @Override
     public void showDialogDeleteForm() {
+        Log.d(TAG, "onDialogDeleteForm");
         AlertDialog.Builder builder = new AlertDialog.Builder(FormActivity.this);
         builder.setTitle(R.string.delete);
         builder.setMessage(R.string.dialog_delete_form);
@@ -160,12 +262,57 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     @Override
     public void showDate() {
+        Log.d(TAG, "on ShowDate");
         DatePickerDialog datePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
             final int actualMonth = month + 1;
             String dayFormated = (dayOfMonth < 10) ? zero + dayOfMonth : String.valueOf(dayOfMonth);
             String monthFormated = (actualMonth < 10) ? zero + actualMonth : String.valueOf(actualMonth);
-            dateform.setText(dayFormated + bar + monthFormated + bar + year);
+            dateTIET.setText(dayFormated + bar + monthFormated + bar + year);
         }, year, month, day);
         datePicker.show();
+    }
+
+    @Override
+    public void showDialogAddOptions() {
+        Log.d(TAG, "onDialogAddOptions");
+        AlertDialog.Builder builder = new AlertDialog.Builder(FormActivity.this);
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams linear = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        linear.setLayoutDirection(LinearLayout.VERTICAL);
+        linear.setMargins(70, 30, 70, 50);
+        builder.setTitle(R.string.add);
+        builder.setMessage(R.string.show_dialog_add_options);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        ll.addView(input, linear);
+        builder.setView(ll);
+        builder.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                formPresenter.onAddOptions(input.getText().toString());
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    @Override
+    public void addOptionsToSpinner(String text) {
+        options.add(text);
+        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options));
+
+    }
+
+    @Override
+    public void showErrorAddTextToSpinner() {
+        Toast.makeText(this, R.string.text_cant_be_empty, Toast.LENGTH_SHORT).show();
     }
 }
