@@ -61,7 +61,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         setSupportActionBar(t);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.form);
-        formPresenter = new FormPresenter(this);
+        formPresenter = new FormPresenter(this, getApplicationContext());
         spinner();
         binds();
         listeners();
@@ -105,13 +105,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         nameTIET.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Log.d(TAG, "Exit name EditText");
-                int result = iEntity.setName(Objects.requireNonNull(nameTIET.getText()).toString());
-                if (result == 0) {
+                String result = iEntity.setName(Objects.requireNonNull(nameTIET.getText()).toString());
+                if (result.equals("")) {
                     nameTIL.setError("");
-                } else if (result == 1) {
-                    nameTIL.setError(getString(R.string.name_cant_empty));
                 } else {
-                    nameTIL.setError(getString(R.string.name_only_letter_numbers));
+                    nameTIL.setError(formPresenter.getError(result));
                 }
             } else {
                 Log.d(TAG, "Input name EditText");
@@ -121,13 +119,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         siteTIET.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Log.d(TAG, "Exit site EditText");
-                int result = iEntity.setSite(Objects.requireNonNull(siteTIET.getText()).toString());
-                if (result == 0) {
+                String result = iEntity.setSite(Objects.requireNonNull(siteTIET.getText()).toString());
+                if (result.equals("")) {
                     siteTIL.setError("");
-                } else if (result == 1) {
-                    siteTIL.setError(getString(R.string.site_cant_empty));
                 } else {
-                    siteTIL.setError(getString(R.string.site_only_letter_numbers));
+                    siteTIL.setError(formPresenter.getError(result));
                 }
             } else {
                 Log.d(TAG, "Input site EditText");
@@ -137,13 +133,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         dateTIET.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Log.d(TAG, "Exit date EditText");
-                int result = iEntity.setDate(Objects.requireNonNull(dateTIET.getText()).toString());
-                if (result == 0) {
+                String result = iEntity.setDate(Objects.requireNonNull(dateTIET.getText()).toString());
+                if (result.equals("")) {
                     dateTIL.setError("");
-                } else if (result == 1) {
-                    dateTIL.setError(getString(R.string.date_cant_empty));
                 } else {
-                    dateTIL.setError(getString(R.string.date_error_formated));
+                    dateTIL.setError(formPresenter.getError(result));
                 }
             } else {
                 Log.d(TAG, "Input date EditText");
@@ -153,11 +147,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         descriptionTIET.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Log.d(TAG, "Exit description EditText");
-                int result = iEntity.setDescription(Objects.requireNonNull(descriptionTIET.getText()).toString());
-                if (result == 0) {
+                String result = iEntity.setDescription(Objects.requireNonNull(descriptionTIET.getText()).toString());
+                if (result.equals("")) {
                     descriptionTIL.setError("");
                 } else {
-                    descriptionTIL.setError(getString(R.string.description_cant_empty));
+                    descriptionTIL.setError(formPresenter.getError(result));
                 }
             } else {
                 Log.d(TAG, "Input description EditText");
@@ -167,15 +161,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         phoneTIET.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Log.d(TAG, "Exit phone EditText");
-                int result = iEntity.setPhone(Objects.requireNonNull(phoneTIET.getText()).toString());
-                if (result == 0) {
+                String result = iEntity.setPhone(Objects.requireNonNull(phoneTIET.getText()).toString());
+                if (result.equals("")) {
                     phoneTIL.setError("");
-                } else if (result == 1) {
-                    phoneTIL.setError(getString(R.string.phone_cant_empty));
-                } else if (result == 2) {
-                    phoneTIL.setError(getString(R.string.phone_only_numbers));
                 } else {
-                    phoneTIL.setError(getString(R.string.phone_too_long));
+                    phoneTIL.setError(formPresenter.getError(result));
                 }
             } else {
                 Log.d(TAG, "Input phone EditText");

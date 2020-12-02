@@ -109,7 +109,7 @@
                 android:layout_width="65dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="32dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/photo"
                 app:srcCompat="@android:drawable/ic_menu_my_calendar" />
@@ -126,26 +126,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <Button
-                android:id="@+id/save"
+                android:id="@+id/delete"
+                style="@style/buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/save"
-                style="@style/buttons"
+                android:text="@string/delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTIL" />
 
             <Button
-                android:id="@+id/delete"
+                android:id="@+id/save"
+                style="@style/buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/delete"
-                style="@style/buttons"
+                android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTIL"
@@ -274,7 +274,7 @@
                 android:layout_width="65dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="120dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dateimage"
                 app:srcCompat="@android:drawable/ic_menu_help" />

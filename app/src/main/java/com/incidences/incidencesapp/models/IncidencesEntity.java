@@ -23,18 +23,18 @@ public class IncidencesEntity {
      * error 2 = name can only contain letters and/or numbers
      */
 
-    public int setName(String name) {
-        int error = 0;
+    public String setName(String name) {
+        String error = "";
         if (name != null && name.length() > 0) {
             Pattern pat = Pattern.compile("[A-Za-zÑñ0-9\\s]+");
             Matcher mat = pat.matcher(name.trim());
             if (mat.matches()) {
                 this.name = name;
             } else {
-                error = 2;
+                error = "name_bad_format";
             }
         } else {
-            error = 1;
+            error = "name_empty";
         }
         return error;
     }
@@ -48,18 +48,18 @@ public class IncidencesEntity {
      * error 1 = site empty
      * error 2 = site can only contain letters and/or numbers
      */
-    public int setSite(String site) {
-        int error = 0;
+    public String setSite(String site) {
+        String error = "";
         if (site != null && site.length() > 0) {
             Pattern pat = Pattern.compile("[A-Za-zÑñ0-9\\s]+");
             Matcher mat = pat.matcher(site.trim());
             if (mat.matches()) {
                 this.site = site;
             } else {
-                error = 2;
+                error = "site_bad_format";
             }
         } else {
-            error = 1;
+            error = "site_empty";
         }
         return error;
     }
@@ -75,20 +75,20 @@ public class IncidencesEntity {
      * error 2 = phone can only contain numbers
      * error 3 = phone can only contain 9 digits
      */
-    public int setPhone(String phone) {
-        int error = 0;
+    public String setPhone(String phone) {
+        String error = "";
         if (phone != null && phone.length() > 0) {
             Pattern pat = Pattern.compile("\\d{9}");
             Matcher mat = pat.matcher(phone);
             if (mat.matches()) {
                 this.phone = phone;
             } else if (phone.length() != 9) {
-                error = 3;
+                error = "phone_only_9_digits";
             } else {
-                error = 2;
+                error = "phone_only_numbers";
             }
         } else {
-            error = 1;
+            error = "phone_empty";
         }
         return error;
     }
@@ -101,12 +101,12 @@ public class IncidencesEntity {
      * error 0 = ok
      * error 1 = description empty
      */
-    public int setDescription(String description) {
-        int error = 0;
+    public String setDescription(String description) {
+        String error = "";
         if (description != null && description.length() > 0) {
             this.description = description;
         } else {
-            error = 1;
+            error = "description_empty";
         }
         return error;
     }
@@ -115,8 +115,8 @@ public class IncidencesEntity {
         return date;
     }
 
-    public int setDate(String date) {
-        int result = 0;
+    public String setDate(String date) {
+        String error = "";
         if (!date.isEmpty()) {
             SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
             dateformat.setLenient(false);
@@ -125,13 +125,13 @@ public class IncidencesEntity {
                 this.date = date;
             } catch (ParseException e) {
                 e.printStackTrace();
-                result = 2;
+                error = "date_bad_format";
             }
 
         } else {
-            result = 1;
+            error = "date_empty";
         }
 
-        return result;
+        return error;
     }
 }

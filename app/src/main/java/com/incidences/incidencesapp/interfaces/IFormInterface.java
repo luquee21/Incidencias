@@ -26,5 +26,7 @@ public interface IFormInterface {
         void onClickAddOptions();
 
         void onAddOptions(String option);
+
+        String getError(String error);
     }
 }
