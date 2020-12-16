@@ -23,4 +23,14 @@ public class MainPresenter implements IMainInterface.Presenter {
     public void onClickSearch() {
         view.startSearchActivity();
     }
+
+    @Override
+    public void onClickItem(String id) {
+        view.onItemClicked(id);
+    }
+
+    @Override
+    public void onSwipe(int position) {
+        view.swiped(position);
+    }
 }

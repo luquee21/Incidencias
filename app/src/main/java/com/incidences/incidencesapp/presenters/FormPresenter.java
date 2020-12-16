@@ -1,6 +1,12 @@
 package com.incidences.incidencesapp.presenters;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.util.Log;
+
+import androidx.core.content.ContextCompat;
 
 import com.incidences.incidencesapp.R;
 import com.incidences.incidencesapp.interfaces.IFormInterface;
@@ -8,6 +14,8 @@ import com.incidences.incidencesapp.interfaces.IFormInterface;
 public class FormPresenter implements IFormInterface.Presenter {
     private final IFormInterface.View view;
     private final Context context;
+    private final static String TAG = "FormPresenter";
+
 
     public FormPresenter(IFormInterface.View view, Context context) {
         this.view = view;
@@ -84,4 +92,44 @@ public class FormPresenter implements IFormInterface.Presenter {
 
         return err_msg;
     }
+
+    @Override
+    public void onClickImage() {
+        int WriteExternalStoragePermission = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        Log.d(TAG, "WRITE_EXTERNAL_STORAGE Permission: " + WriteExternalStoragePermission);
+        if (WriteExternalStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            view.showRequestPermission();
+        } else {
+            view.selectImageFromGallery();
+        }
+    }
+
+    @Override
+    public void permissionDenied() {
+        Log.d(TAG, "permissions denied...");
+        view.showError(context.getResources().getString(R.string.error_permission_gallery));
+    }
+
+    @Override
+    public void permissionGranted() {
+        Log.d(TAG, "permissions granted...");
+        view.selectImageFromGallery();
+    }
+
+    @Override
+    public void imageSelected(Intent data) {
+        Log.d(TAG, "image selected...");
+        view.imageSelected(data);
+    }
+
+    @Override
+    public void imageNotSelected() {
+        Log.d(TAG, "image not selected...");
+        view.showError(context.getResources().getString(R.string.image_not_selected));
+    }
+
+
 }
+
+
+

@@ -6,12 +6,46 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IncidencesEntity {
-
+    private String id;
     private String name;
     private String site;
     private String phone;
     private String description;
     private String date;
+    private String image;
+
+    public IncidencesEntity() {
+    }
+
+    public IncidencesEntity(String id, String name, String date, String image) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.image = image;
+    }
+
+
+    public IncidencesEntity(String id, String name, String date) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getName() {
         return name;

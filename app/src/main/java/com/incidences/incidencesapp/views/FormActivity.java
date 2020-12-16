@@ -1,7 +1,15 @@
 package com.incidences.incidencesapp.views;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -11,15 +19,18 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,6 +39,8 @@ import com.incidences.incidencesapp.interfaces.IFormInterface;
 import com.incidences.incidencesapp.models.IncidencesEntity;
 import com.incidences.incidencesapp.presenters.FormPresenter;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -49,8 +62,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     private Spinner spinner;
     private IFormInterface.Presenter formPresenter;
     private IncidencesEntity iEntity;
+    private final int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
     private TextInputEditText nameTIET, siteTIET, dateTIET, descriptionTIET, phoneTIET;
     private TextInputLayout nameTIL, siteTIL, dateTIL, descriptionTIL, phoneTIL;
+    private final int REQUEST_SELECT_IMAGE = 201;
+    private ImageButton photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +78,25 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.form);
         formPresenter = new FormPresenter(this, getApplicationContext());
+        iEntity = new IncidencesEntity();
         spinner();
         binds();
+        checkingData();
         listeners();
         checkData();
-
-
     }
+
+    private void checkingData() {
+        String id = getIntent().getStringExtra("id");
+        if (id != null) {
+            nameTIET.setText(id);
+        }
+    }
+
 
     private void spinner() {
         Log.d(TAG, "creating spinner...");
         spinner = findViewById(R.id.spinner);
-        iEntity = new IncidencesEntity();
         options = new ArrayList<>();
         options.add(getString(R.string.severe));
         options.add(getString(R.string.moderate));
@@ -84,6 +107,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     private void binds() {
         Log.d(TAG, "binding...");
+        photo = findViewById(R.id.photo);
         save = findViewById(R.id.save);
         delete = findViewById(R.id.delete);
         addOptions = findViewById(R.id.addOptions);
@@ -190,6 +214,10 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         addOptions.setOnClickListener(v -> {
             Log.d(TAG, "Click addoptions button pressed");
             formPresenter.onClickAddOptions();
+        });
+        photo.setOnClickListener(v -> {
+            Log.d(TAG, "Click image button pressed");
+            formPresenter.onClickImage();
         });
     }
 
@@ -342,5 +370,82 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     public void showErrorAddTextToSpinner() {
         Log.d(TAG, "showing error adding option to spinner...");
         Toast.makeText(this, R.string.text_cant_be_empty, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void selectImageFromGallery() {
+        Log.d(TAG, "selecting image from gallery...");
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(intent, getResources().getString(R.string.choose_image)),
+                REQUEST_SELECT_IMAGE);
+    }
+
+    @Override
+    public void showRequestPermission() {
+        Log.d(TAG, "showing permissions gallery...");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ActivityCompat.requestPermissions(FormActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_WRITE_EXTERNAL_STORAGE_PERMISSION);
+        } else {
+            formPresenter.permissionDenied();
+        }
+    }
+
+    @Override
+    public void showError(String msg) {
+        Log.d(TAG, "showing error...");
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void imageSelected(Intent data) {
+        Log.d(TAG, "image selected...");
+        Uri selectedImage = data.getData();
+        String selectedPath = selectedImage.getPath();
+        if (selectedPath != null) {
+            InputStream imageStream = null;
+            try {
+                imageStream = getContentResolver().openInputStream(selectedImage);
+            } catch (FileNotFoundException e) {
+            }
+            Bitmap bmp = BitmapFactory.decodeStream(imageStream);
+            Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 200, 200, false);
+            photo.setImageBitmap(imageScaled);
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        Log.d(TAG, "on request permissions");
+        switch (requestCode) {
+            case CODE_WRITE_EXTERNAL_STORAGE_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    formPresenter.permissionGranted();
+                } else {
+                    formPresenter.permissionDenied();
+                }
+                break;
+
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "on activity result");
+        switch (requestCode) {
+            case (REQUEST_SELECT_IMAGE):
+                if (resultCode == Activity.RESULT_OK) {
+                    formPresenter.imageSelected(data);
+                } else {
+                    formPresenter.imageNotSelected();
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

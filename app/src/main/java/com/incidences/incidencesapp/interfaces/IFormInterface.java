@@ -1,5 +1,7 @@
 package com.incidences.incidencesapp.interfaces;
 
+import android.content.Intent;
+
 public interface IFormInterface {
 
     interface View {
@@ -14,6 +16,15 @@ public interface IFormInterface {
         void addOptionsToSpinner(String text);
 
         void showErrorAddTextToSpinner();
+
+        void selectImageFromGallery();
+
+        void showRequestPermission();
+
+        void showError(String msg);
+
+        void imageSelected(Intent data);
+
     }
 
     interface Presenter {
@@ -28,5 +39,16 @@ public interface IFormInterface {
         void onAddOptions(String option);
 
         String getError(String error);
+
+        void onClickImage();
+
+        void permissionDenied();
+
+        void permissionGranted();
+
+        void imageSelected(Intent data);
+
+        void imageNotSelected();
+
     }
 }

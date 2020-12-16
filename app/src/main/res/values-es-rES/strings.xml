@@ -45,4 +45,10 @@
     <string name="phone_too_long">El teléfono solo puede contener 9 dígitos</string>
     <string name="name_only_letter_numbers">El nombre solo puede contener letras y/o números</string>
     <string name="name_cant_empty">El nombre no puede estar vacío</string>
+    <string name="list_incidences">List of Incidences</string>
+    <string name="cant_remove">"Can't remove "</string>
+    <string name="remove_succesfully">Succesfully removed</string>
+    <string name="error_permission_gallery">Error, no gallery permissions</string>
+    <string name="choose_image">Choose image</string>
+    <string name="image_not_selected">Image not selected</string>
 </resources>

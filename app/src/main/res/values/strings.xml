@@ -45,4 +45,10 @@
     <string name="phone_cant_empty">Phone can\'t be empty</string>
     <string name="phone_only_numbers">Phone must only contain numbers</string>
     <string name="phone_too_long">Phone must only contain 9 digits</string>
+    <string name="list_incidences">List of Incidences</string>
+    <string name="cant_remove">"Can't remove "</string>
+    <string name="remove_succesfully">Succesfully removed</string>
+    <string name="error_permission_gallery">Error, no gallery permissions</string>
+    <string name="choose_image">Choose image</string>
+    <string name="image_not_selected">Image not selected</string>
 </resources>

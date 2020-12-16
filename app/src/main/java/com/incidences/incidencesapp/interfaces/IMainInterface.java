@@ -8,6 +8,11 @@ public interface IMainInterface {
         void startAboutActivity();
 
         void startSearchActivity();
+
+        void onItemClicked(String id);
+
+        void swiped(int position);
+
     }
 
     interface Presenter {
@@ -16,5 +21,10 @@ public interface IMainInterface {
         void onClickAbout();
 
         void onClickSearch();
+
+        void onClickItem(String id);
+
+        void onSwipe(int position);
+
     }
 }
