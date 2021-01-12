@@ -10,16 +10,19 @@ import androidx.core.content.ContextCompat;
 
 import com.incidences.incidencesapp.R;
 import com.incidences.incidencesapp.interfaces.IFormInterface;
+import com.incidences.incidencesapp.models.IncidencesModel;
 
 public class FormPresenter implements IFormInterface.Presenter {
     private final IFormInterface.View view;
     private final Context context;
     private final static String TAG = "FormPresenter";
+    private final IncidencesModel incidencesModel;
 
 
     public FormPresenter(IFormInterface.View view, Context context) {
         this.view = view;
         this.context = context;
+        this.incidencesModel = new IncidencesModel();
     }
 
     @Override

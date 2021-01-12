@@ -5,7 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IncidencesEntity {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class IncidencesEntity extends RealmObject {
+    @PrimaryKey
     private String id;
     private String name;
     private String site;

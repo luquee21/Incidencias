@@ -32,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.incidences.incidencesapp.R;
@@ -55,10 +56,9 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     private ArrayAdapter<String> adapter;
     private final String bar = "/";
     private final String zero = "0";
-    private Button save, delete;
+    private Button save, delete, addOptions, empty;
     private ImageView dateimage;
     private ArrayList<String> options;
-    private Button addOptions;
     private Spinner spinner;
     private IFormInterface.Presenter formPresenter;
     private IncidencesEntity iEntity;
@@ -107,6 +107,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     private void binds() {
         Log.d(TAG, "binding...");
+        empty = findViewById(R.id.empty);
         photo = findViewById(R.id.photo);
         save = findViewById(R.id.save);
         delete = findViewById(R.id.delete);
@@ -218,6 +219,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         photo.setOnClickListener(v -> {
             Log.d(TAG, "Click image button pressed");
             formPresenter.onClickImage();
+        });
+        empty.setOnClickListener(v -> {
+            Log.d(TAG, "Click empty button pressed");
+            photo.setImageBitmap(null);
+            photo.setBackground(getDrawable(R.drawable.ic_notas));
         });
     }
 
@@ -395,8 +401,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     @Override
     public void showError(String msg) {
-        Log.d(TAG, "showing error...");
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.coordinatorLayout), msg, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -412,6 +417,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
             }
             Bitmap bmp = BitmapFactory.decodeStream(imageStream);
             Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 200, 200, false);
+            photo.setBackground(null);
             photo.setImageBitmap(imageScaled);
         }
     }

@@ -11,13 +11,17 @@ import com.incidences.incidencesapp.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.realm.Realm;
+
 public class SplashScreenActivity extends AppCompatActivity {
     private final String TAG = "SplashScreen";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "Inside oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        Realm.init(getApplicationContext());
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
