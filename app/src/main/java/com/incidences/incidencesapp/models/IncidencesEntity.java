@@ -21,18 +21,10 @@ public class IncidencesEntity extends RealmObject {
     public IncidencesEntity() {
     }
 
-    public IncidencesEntity(String id, String name, String date, String image) {
-        this.id = id;
+    public IncidencesEntity(String name, String date, String image) {
         this.name = name;
         this.date = date;
         this.image = image;
-    }
-
-
-    public IncidencesEntity(String id, String name, String date) {
-        this.id = id;
-        this.name = name;
-        this.date = date;
     }
 
     public String getId() {
@@ -171,5 +163,17 @@ public class IncidencesEntity extends RealmObject {
         }
 
         return error;
+    }
+
+    @Override
+    public String toString() {
+        return "IncidencesEntity{" +
+                ", name='" + name + '\'' +
+                ", site='" + site + '\'' +
+                ", phone='" + phone + '\'' +
+                ", description='" + description + '\'' +
+                ", date='" + date + '\'' +
+                ", image='" + image + '\'' +
+                '}';
     }
 }

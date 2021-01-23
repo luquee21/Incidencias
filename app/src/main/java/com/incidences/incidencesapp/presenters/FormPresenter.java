@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 
 import com.incidences.incidencesapp.R;
 import com.incidences.incidencesapp.interfaces.IFormInterface;
+import com.incidences.incidencesapp.models.IncidencesEntity;
 import com.incidences.incidencesapp.models.IncidencesModel;
 
 public class FormPresenter implements IFormInterface.Presenter {
@@ -26,8 +27,12 @@ public class FormPresenter implements IFormInterface.Presenter {
     }
 
     @Override
-    public void onClickSaveButton() {
-        view.finishFormActivity();
+    public void onClickSaveButton(IncidencesEntity incidence) {
+        if (incidencesModel.insert(incidence)) {
+            view.saveForm();
+        } else {
+            view.errorSavingForm();
+        }
     }
 
     @Override

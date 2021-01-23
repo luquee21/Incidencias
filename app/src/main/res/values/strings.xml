@@ -51,4 +51,6 @@
     <string name="error_permission_gallery">Error, no gallery permissions</string>
     <string name="choose_image">Choose image</string>
     <string name="image_not_selected">Image not selected</string>
+    <string name="error_saving">Error saving form</string>
+    <string name="save_successfully">Successfully saved form</string>
 </resources>

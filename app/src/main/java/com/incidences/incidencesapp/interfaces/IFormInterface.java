@@ -2,10 +2,14 @@ package com.incidences.incidencesapp.interfaces;
 
 import android.content.Intent;
 
+import com.incidences.incidencesapp.models.IncidencesEntity;
+
 public interface IFormInterface {
 
     interface View {
-        void finishFormActivity();
+        void errorSavingForm();
+
+        void saveForm();
 
         void showDialogDeleteForm();
 
@@ -28,7 +32,7 @@ public interface IFormInterface {
     }
 
     interface Presenter {
-        void onClickSaveButton();
+        void onClickSaveButton(IncidencesEntity incidence);
 
         void onClickDeleteButton();
 

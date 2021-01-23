@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_incidences_round"
         android:supportsRtl="true"
+        android:name=".MyApplication"
         android:theme="@style/Theme.IncidencesApp">
         <activity
             android:name=".views.SearchActivity"
@@ -25,7 +26,6 @@
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

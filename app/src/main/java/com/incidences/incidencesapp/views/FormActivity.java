@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +42,7 @@ import com.incidences.incidencesapp.interfaces.IFormInterface;
 import com.incidences.incidencesapp.models.IncidencesEntity;
 import com.incidences.incidencesapp.presenters.FormPresenter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -48,24 +51,24 @@ import java.util.Objects;
 
 
 public class FormActivity extends AppCompatActivity implements IFormInterface.View {
-    private final String TAG = "FormActivity";
     public final Calendar c = Calendar.getInstance();
     final int month = c.get(Calendar.MONTH);
     final int day = c.get(Calendar.DAY_OF_MONTH);
     final int year = c.get(Calendar.YEAR);
-    private ArrayAdapter<String> adapter;
+    private final String TAG = "FormActivity";
     private final String bar = "/";
     private final String zero = "0";
+    private final int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
+    private final int REQUEST_SELECT_IMAGE = 201;
+    private ArrayAdapter<String> adapter;
     private Button save, delete, addOptions, empty;
     private ImageView dateimage;
     private ArrayList<String> options;
     private Spinner spinner;
     private IFormInterface.Presenter formPresenter;
     private IncidencesEntity iEntity;
-    private final int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
     private TextInputEditText nameTIET, siteTIET, dateTIET, descriptionTIET, phoneTIET;
     private TextInputLayout nameTIL, siteTIL, dateTIL, descriptionTIL, phoneTIL;
-    private final int REQUEST_SELECT_IMAGE = 201;
     private ImageButton photo;
 
     @Override
@@ -202,7 +205,16 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         Log.d(TAG, "checking listeners...");
         save.setOnClickListener(v -> {
             Log.d(TAG, "Click save button pressed");
-            formPresenter.onClickSaveButton();
+            if (dateimage != null && dateimage.getDrawable() != null) {
+                Bitmap bitmap = ((BitmapDrawable) dateimage.getDrawable()).getBitmap();
+                if (bitmap != null) {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                    byte[] byteArray = byteArrayOutputStream.toByteArray();
+                    String base64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                    formPresenter.onClickSaveButton(new IncidencesEntity(nameTIET.toString(), dateTIET.toString(), base64));
+                }
+            }
         });
         dateimage.setOnClickListener(v -> {
             Log.d(TAG, "Click dateimagebutton pressed");
@@ -294,9 +306,15 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
 
     @Override
-    public void finishFormActivity() {
-        Log.d(TAG, "Finishing FormActivity");
-        finish();
+    public void errorSavingForm() {
+        Log.d(TAG, "error saving form");
+        Toast.makeText(this, R.string.error_saving, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void saveForm() {
+        Log.d(TAG, "save form");
+        Toast.makeText(this, R.string.save_successfully, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -308,7 +326,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finishFormActivity();
+                saveForm();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
