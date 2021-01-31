@@ -1,6 +1,7 @@
 package com.incidences.incidencesapp.views;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +39,8 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     private ImageView dateImage;
     private EditText date;
     private ArrayList<String> options;
+    private Spinner spinner;
+    private EditText title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,8 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
 
     private void binds() {
         Log.d(TAG, "binding data...");
+        title = findViewById(R.id.searchtitle);
+        spinner = findViewById(R.id.spinner2);
         search = findViewById(R.id.buttonsearch);
         dateImage = findViewById(R.id.imageDate);
         date = findViewById(R.id.date);
@@ -65,10 +71,12 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
         Log.d(TAG, "creating spinner...");
         Spinner spinner = findViewById(R.id.spinner2);
         options = new ArrayList<>();
-        options.add(getString(R.string.severe));
-        options.add(getString(R.string.moderate));
-        options.add(getString(R.string.low));
-        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options));
+        options = presenter.getSeverities();
+        options.add("Elegir...");
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getPosition("Elegir..."));
     }
 
     private void listeners() {
@@ -149,7 +157,24 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     @Override
     public void finishSearchActivity() {
         Log.d(TAG, "finishing search activity...");
-        finish();
+        Intent i = new Intent();
+
+        if (date != null && date.getText().toString().isEmpty() && spinner != null && spinner.getSelectedItem().toString().equals("Elegir...") && title != null && title.getText().toString().isEmpty()) {
+            Toast.makeText(this, R.string.no_search_criteria, Toast.LENGTH_SHORT).show();
+        } else {
+            if (date != null && !date.getText().toString().isEmpty()) {
+                i.putExtra("date", date.getText().toString());
+            }
+            if (spinner != null && !spinner.getSelectedItem().toString().equals("Elegir...")) {
+                i.putExtra("severity", spinner.getSelectedItem().toString());
+            }
+            if (title != null && !title.getText().toString().isEmpty()) {
+                i.putExtra("title", title.getText().toString());
+            }
+            setResult(1, i);
+            finish();
+        }
+
     }
 
     @Override

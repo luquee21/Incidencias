@@ -6,7 +6,7 @@
     <string name="help">Ayuda</string>
     <string name="about">Sobre mi</string>
     <string name="create_incidence">Crear incidencia</string>
-    <string name="issue_resolved">Incidencia resulta</string>
+    <string name="issue_resolved">Incidencia resuelta</string>
     <string name="save">Guardar</string>
     <string name="delete">Borrar</string>
     <string name="empty">Vaciar</string>
@@ -16,7 +16,7 @@
     <string name="date">Fecha</string>
     <string name="site">Lugar</string>
     <string name="add_option">Añadir opción</string>
-    <string name="show_10_result">Mostrando 10 resultados</string>
+    <string name="results">resultados</string>
     <string name="show_5_results">Mostrando 5 resultados</string>
     <string name="incidence">Incidencia</string>
     <string name="severity">Gravedad: leve</string>
@@ -53,4 +53,7 @@
     <string name="image_not_selected">Imagen no seleccionada</string>
     <string name="error_saving">Error saving form</string>
     <string name="save_successfully">Successfully saved form</string>
+    <string name="showing">"Mostrando "</string>
+    <string name="no_search_criteria">"No search criteria "</string>
+    <string name="empty_form_fields">Empty form fields</string>
 </resources>

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -70,6 +72,9 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     private TextInputEditText nameTIET, siteTIET, dateTIET, descriptionTIET, phoneTIET;
     private TextInputLayout nameTIL, siteTIL, dateTIL, descriptionTIL, phoneTIL;
     private ImageButton photo;
+    private Switch switch1;
+    private String id;
+    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,30 +95,33 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     }
 
     private void checkingData() {
-        String id = getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
         if (id != null) {
-            nameTIET.setText(id);
+            flag = true;
+            delete.setVisibility(View.VISIBLE);
+            formPresenter.getItemById(id);
         }
+
+
     }
 
 
     private void spinner() {
         Log.d(TAG, "creating spinner...");
         spinner = findViewById(R.id.spinner);
-        options = new ArrayList<>();
-        options.add(getString(R.string.severe));
-        options.add(getString(R.string.moderate));
-        options.add(getString(R.string.low));
+        options = formPresenter.getSevereties();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
         spinner.setAdapter(adapter);
     }
 
     private void binds() {
         Log.d(TAG, "binding...");
+        switch1 = findViewById(R.id.switch1);
         empty = findViewById(R.id.empty);
         photo = findViewById(R.id.photo);
         save = findViewById(R.id.save);
         delete = findViewById(R.id.delete);
+        delete.setVisibility(View.GONE);
         addOptions = findViewById(R.id.addOptions);
         dateimage = findViewById(R.id.dateimage);
         nameTIL = findViewById(R.id.nameTIL);
@@ -204,7 +212,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     private void listeners() {
         Log.d(TAG, "checking listeners...");
         save.setOnClickListener(v -> {
-            Log.d(TAG, "Click save button pressed");
+            boolean flag2 = false;
             if (dateimage != null && dateimage.getDrawable() != null) {
                 Bitmap bitmap = ((BitmapDrawable) dateimage.getDrawable()).getBitmap();
                 if (bitmap != null) {
@@ -212,9 +220,59 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                     byte[] byteArray = byteArrayOutputStream.toByteArray();
                     String base64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                    formPresenter.onClickSaveButton(new IncidencesEntity(nameTIET.toString(), dateTIET.toString(), base64));
+                    iEntity.setImage(base64);
                 }
             }
+
+            if (!nameTIET.getText().toString().isEmpty() && !descriptionTIET.getText().toString().isEmpty()
+                    && !siteTIET.getText().toString().isEmpty() && !dateTIET.getText().toString().isEmpty()
+                    && !phoneTIET.getText().toString().isEmpty() && !spinner.getSelectedItem().toString().isEmpty()) {
+                flag2 = true;
+            } else {
+                Toast.makeText(this, R.string.empty_form_fields, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Empty form fields");
+            }
+            String result;
+            iEntity.setResolved(switch1.isChecked());
+            result = iEntity.setName(nameTIET.getText().toString());
+            if (result.isEmpty()) {
+                nameTIL.setError("");
+            } else {
+                nameTIL.setError(formPresenter.getError(result));
+            }
+            result = iEntity.setDescription(Objects.requireNonNull(descriptionTIET.getText()).toString());
+            if (result.isEmpty()) {
+                descriptionTIL.setError("");
+            } else {
+                descriptionTIL.setError(formPresenter.getError(result));
+            }
+            result = iEntity.setSite(Objects.requireNonNull(siteTIET.getText()).toString());
+            if (result.isEmpty()) {
+                siteTIL.setError("");
+            } else {
+                siteTIL.setError(formPresenter.getError(result));
+            }
+            result = iEntity.setDate(Objects.requireNonNull(dateTIET.getText()).toString());
+            if (result.isEmpty()) {
+                dateTIL.setError("");
+            } else {
+                dateTIL.setError(formPresenter.getError(result));
+            }
+            result = iEntity.setPhone(Objects.requireNonNull(phoneTIET.getText()).toString());
+            if (result.isEmpty()) {
+                phoneTIL.setError("");
+            } else {
+                phoneTIL.setError(formPresenter.getError(result));
+            }
+            iEntity.setSeverity(spinner.getSelectedItem().toString());
+            if (flag2 && flag) {
+                iEntity.setId(id);
+                formPresenter.onClickSaveButton(iEntity, false);
+            } else if (flag2) {
+                formPresenter.onClickSaveButton(iEntity, true);
+            }
+
+
         });
         dateimage.setOnClickListener(v -> {
             Log.d(TAG, "Click dateimagebutton pressed");
@@ -315,6 +373,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     public void saveForm() {
         Log.d(TAG, "save form");
         Toast.makeText(this, R.string.save_successfully, Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
@@ -438,6 +497,16 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
             photo.setBackground(null);
             photo.setImageBitmap(imageScaled);
         }
+    }
+
+    @Override
+    public void showData(IncidencesEntity e) {
+        nameTIET.setText(e.getName());
+        siteTIET.setText(e.getSite());
+        dateTIET.setText(e.getDate());
+        phoneTIET.setText(e.getPhone());
+        descriptionTIET.setText(e.getDescription());
+        switch1.setChecked(e.isResolved());
     }
 
 

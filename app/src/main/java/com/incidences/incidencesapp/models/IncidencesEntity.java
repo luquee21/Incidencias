@@ -1,7 +1,5 @@
 package com.incidences.incidencesapp.models;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +15,8 @@ public class IncidencesEntity extends RealmObject {
     private String description;
     private String date;
     private String image;
+    private String severity;
+    private boolean resolved;
 
     public IncidencesEntity() {
     }
@@ -25,6 +25,11 @@ public class IncidencesEntity extends RealmObject {
         this.name = name;
         this.date = date;
         this.image = image;
+    }
+
+    public IncidencesEntity(String name, String date) {
+        this.name = name;
+        this.date = date;
     }
 
     public String getId() {
@@ -47,6 +52,22 @@ public class IncidencesEntity extends RealmObject {
         return name;
     }
 
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public boolean isResolved() {
+        return resolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        this.resolved = resolved;
+    }
+
     /**
      * error 0 = ok
      * error 1 = name empty
@@ -56,7 +77,7 @@ public class IncidencesEntity extends RealmObject {
     public String setName(String name) {
         String error = "";
         if (name != null && name.length() > 0) {
-            Pattern pat = Pattern.compile("[A-Za-zÑñ0-9\\s]+");
+            Pattern pat = Pattern.compile("[A-Za-zÑñ0-9\\s[,]]+");
             Matcher mat = pat.matcher(name.trim());
             if (mat.matches()) {
                 this.name = name;
@@ -147,19 +168,20 @@ public class IncidencesEntity extends RealmObject {
 
     public String setDate(String date) {
         String error = "";
-        if (!date.isEmpty()) {
-            SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
-            dateformat.setLenient(false);
-            try {
-                dateformat.parse(date);
+        if (date != null && !date.isEmpty()) {
+            Pattern p = Pattern.compile("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)" +
+                    "(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)" +
+                    "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|" +
+                    "(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)" +
+                    "(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
+            Matcher m = p.matcher(date);
+            if (!m.find()) {
+                error = "date_bad_format"; //Date not correct
+            } else {
                 this.date = date;
-            } catch (ParseException e) {
-                e.printStackTrace();
-                error = "date_bad_format";
             }
-
         } else {
-            error = "date_empty";
+            error = "date_empty"; //empty field
         }
 
         return error;

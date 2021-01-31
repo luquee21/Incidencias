@@ -1,5 +1,7 @@
 package com.incidences.incidencesapp.interfaces;
 
+import java.util.ArrayList;
+
 public interface ISearchInterface {
 
     interface View {
@@ -12,6 +14,8 @@ public interface ISearchInterface {
         void onClickSearch();
 
         void onClickDate();
+
+        ArrayList<String> getSeverities();
     }
 
 }

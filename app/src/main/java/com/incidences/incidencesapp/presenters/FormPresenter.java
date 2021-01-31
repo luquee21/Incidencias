@@ -13,10 +13,12 @@ import com.incidences.incidencesapp.interfaces.IFormInterface;
 import com.incidences.incidencesapp.models.IncidencesEntity;
 import com.incidences.incidencesapp.models.IncidencesModel;
 
+import java.util.ArrayList;
+
 public class FormPresenter implements IFormInterface.Presenter {
+    private final static String TAG = "FormPresenter";
     private final IFormInterface.View view;
     private final Context context;
-    private final static String TAG = "FormPresenter";
     private final IncidencesModel incidencesModel;
 
 
@@ -27,12 +29,21 @@ public class FormPresenter implements IFormInterface.Presenter {
     }
 
     @Override
-    public void onClickSaveButton(IncidencesEntity incidence) {
-        if (incidencesModel.insert(incidence)) {
-            view.saveForm();
+    public void onClickSaveButton(IncidencesEntity incidence, boolean flag) {
+        if (flag) {
+            if (incidencesModel.insert(incidence)) {
+                view.saveForm();
+            } else {
+                view.errorSavingForm();
+            }
         } else {
-            view.errorSavingForm();
+            if (incidencesModel.update(incidence)) {
+                view.saveForm();
+            } else {
+                view.errorSavingForm();
+            }
         }
+
     }
 
     @Override
@@ -134,6 +145,17 @@ public class FormPresenter implements IFormInterface.Presenter {
     public void imageNotSelected() {
         Log.d(TAG, "image not selected...");
         view.showError(context.getResources().getString(R.string.image_not_selected));
+    }
+
+    @Override
+    public void getItemById(String id) {
+        IncidencesEntity e = incidencesModel.getItemById(id);
+        view.showData(e);
+    }
+
+    @Override
+    public ArrayList<String> getSevereties() {
+        return incidencesModel.getSeverities();
     }
 
 

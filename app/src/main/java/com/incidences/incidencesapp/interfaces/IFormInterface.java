@@ -4,6 +4,8 @@ import android.content.Intent;
 
 import com.incidences.incidencesapp.models.IncidencesEntity;
 
+import java.util.ArrayList;
+
 public interface IFormInterface {
 
     interface View {
@@ -29,10 +31,12 @@ public interface IFormInterface {
 
         void imageSelected(Intent data);
 
+        void showData(IncidencesEntity e);
+
     }
 
     interface Presenter {
-        void onClickSaveButton(IncidencesEntity incidence);
+        void onClickSaveButton(IncidencesEntity incidence, boolean flag);
 
         void onClickDeleteButton();
 
@@ -53,6 +57,10 @@ public interface IFormInterface {
         void imageSelected(Intent data);
 
         void imageNotSelected();
+
+        void getItemById(String id);
+
+        ArrayList<String> getSevereties();
 
     }
 }

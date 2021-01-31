@@ -1,5 +1,9 @@
 package com.incidences.incidencesapp.interfaces;
 
+import com.incidences.incidencesapp.models.IncidencesEntity;
+
+import java.util.ArrayList;
+
 public interface IMainInterface {
 
     interface View {
@@ -26,5 +30,14 @@ public interface IMainInterface {
 
         void onSwipe(int position);
 
+        ArrayList<IncidencesEntity> getItems();
+
+        boolean insertItems(IncidencesEntity entity);
+
+        boolean deleteItems(IncidencesEntity entity);
+
+        ArrayList<IncidencesEntity> getItemsByCriteria(String criteria, String type);
+
+        ArrayList<IncidencesEntity> getItemsByAllCriterias(String severity, String date, String title);
     }
 }
