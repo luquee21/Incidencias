@@ -62,5 +62,7 @@ public interface IFormInterface {
 
         ArrayList<String> getSevereties();
 
+        boolean deleteItem(String id);
+
     }
 }

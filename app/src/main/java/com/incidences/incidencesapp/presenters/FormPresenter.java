@@ -105,6 +105,8 @@ public class FormPresenter implements IFormInterface.Presenter {
             case "description_empty":
                 err_msg = context.getResources().getString(R.string.description_cant_empty);
                 break;
+            case "severity_empty":
+                err_msg = context.getResources().getString(R.string.severity_cant_empty);
 
 
         }
@@ -156,6 +158,11 @@ public class FormPresenter implements IFormInterface.Presenter {
     @Override
     public ArrayList<String> getSevereties() {
         return incidencesModel.getSeverities();
+    }
+
+    @Override
+    public boolean deleteItem(String id) {
+        return incidencesModel.delete(new IncidencesEntity(id));
     }
 
 

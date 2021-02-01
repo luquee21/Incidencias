@@ -161,7 +161,8 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
         } else if (title != null && severity != null && date != null) {
             items.clear();
             items = mainPresenter.getItemsByAllCriterias(severity, date, title);
-
+        } else if (date == null && title == null && severity == null) {
+            items = mainPresenter.getItems();
         }
 
         adapter = new IncidencesAdapter(items, getApplicationContext());

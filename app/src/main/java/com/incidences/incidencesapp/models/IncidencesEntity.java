@@ -21,6 +21,10 @@ public class IncidencesEntity extends RealmObject {
     public IncidencesEntity() {
     }
 
+    public IncidencesEntity(String id) {
+        this.id = id;
+    }
+
     public IncidencesEntity(String name, String date, String image) {
         this.name = name;
         this.date = date;
@@ -56,8 +60,14 @@ public class IncidencesEntity extends RealmObject {
         return severity;
     }
 
-    public void setSeverity(String severity) {
-        this.severity = severity;
+    public String setSeverity(String severity) {
+        String error = "";
+        if (severity != null && severity.length() > 0) {
+            this.severity = severity;
+        } else {
+            error = "severity_empty";
+        }
+        return error;
     }
 
     public boolean isResolved() {

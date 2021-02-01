@@ -100,6 +100,8 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
             flag = true;
             delete.setVisibility(View.VISIBLE);
             formPresenter.getItemById(id);
+        } else {
+            spinner.setSelection(options.size() - 1);
         }
 
 
@@ -112,6 +114,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         options = formPresenter.getSevereties();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
         spinner.setAdapter(adapter);
+
     }
 
     private void binds() {
@@ -221,12 +224,14 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
                     byte[] byteArray = byteArrayOutputStream.toByteArray();
                     String base64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
                     iEntity.setImage(base64);
+                } else {
+                    iEntity.setImage("");
                 }
             }
 
             if (!nameTIET.getText().toString().isEmpty() && !descriptionTIET.getText().toString().isEmpty()
                     && !siteTIET.getText().toString().isEmpty() && !dateTIET.getText().toString().isEmpty()
-                    && !phoneTIET.getText().toString().isEmpty() && !spinner.getSelectedItem().toString().isEmpty()) {
+                    && !phoneTIET.getText().toString().isEmpty() && spinner != null && !spinner.getSelectedItem().toString().equals("Elegir...")) {
                 flag2 = true;
             } else {
                 Toast.makeText(this, R.string.empty_form_fields, Toast.LENGTH_SHORT).show();
@@ -264,7 +269,8 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
             } else {
                 phoneTIL.setError(formPresenter.getError(result));
             }
-            iEntity.setSeverity(spinner.getSelectedItem().toString());
+
+            result = iEntity.setSeverity(Objects.requireNonNull(spinner.getSelectedItem().toString()));
             if (flag2 && flag) {
                 iEntity.setId(id);
                 formPresenter.onClickSaveButton(iEntity, false);
@@ -385,7 +391,12 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                saveForm();
+                if (formPresenter.deleteItem(id)) {
+                    Toast.makeText(getApplicationContext(), R.string.remove_succesfully, Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.cant_remove, Toast.LENGTH_SHORT).show();
+                }
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
