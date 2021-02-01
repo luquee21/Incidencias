@@ -51,10 +51,10 @@
     <string name="error_permission_gallery">Error,no hay permisos para abrir la galeria</string>
     <string name="choose_image">Elige una imagen</string>
     <string name="image_not_selected">Imagen no seleccionada</string>
-    <string name="error_saving">Error saving form</string>
-    <string name="save_successfully">Successfully saved form</string>
+    <string name="error_saving">Error al guardar el formulario</string>
+    <string name="save_successfully">Formulario guardado correctamente</string>
     <string name="showing">"Mostrando "</string>
-    <string name="no_search_criteria">"No search criteria "</string>
-    <string name="empty_form_fields">Empty form fields</string>
-    <string name="severity_cant_empty">Severity can\'t be empty</string>
+    <string name="no_search_criteria">No hay ningún criterio de búsqueda</string>
+    <string name="empty_form_fields">Campos del formulario vacío</string>
+    <string name="severity_cant_empty">La gravedad de la incidencia no puede estar vací</string>
 </resources>

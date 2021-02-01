@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -112,6 +114,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         Log.d(TAG, "creating spinner...");
         spinner = findViewById(R.id.spinner);
         options = formPresenter.getSevereties();
+        options.add("Elegir...");
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
         spinner.setAdapter(adapter);
 
@@ -216,8 +219,8 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         Log.d(TAG, "checking listeners...");
         save.setOnClickListener(v -> {
             boolean flag2 = false;
-            if (dateimage != null && dateimage.getDrawable() != null) {
-                Bitmap bitmap = ((BitmapDrawable) dateimage.getDrawable()).getBitmap();
+            if (photo != null && photo.getDrawable() != null) {
+                Bitmap bitmap = ((BitmapDrawable) photo.getDrawable()).getBitmap();
                 if (bitmap != null) {
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
@@ -244,33 +247,48 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
                 nameTIL.setError("");
             } else {
                 nameTIL.setError(formPresenter.getError(result));
+                flag2 = false;
             }
             result = iEntity.setDescription(Objects.requireNonNull(descriptionTIET.getText()).toString());
             if (result.isEmpty()) {
                 descriptionTIL.setError("");
             } else {
                 descriptionTIL.setError(formPresenter.getError(result));
+                flag2 = false;
             }
             result = iEntity.setSite(Objects.requireNonNull(siteTIET.getText()).toString());
             if (result.isEmpty()) {
                 siteTIL.setError("");
             } else {
                 siteTIL.setError(formPresenter.getError(result));
+                flag2 = false;
             }
             result = iEntity.setDate(Objects.requireNonNull(dateTIET.getText()).toString());
             if (result.isEmpty()) {
                 dateTIL.setError("");
             } else {
                 dateTIL.setError(formPresenter.getError(result));
+                flag2 = false;
             }
             result = iEntity.setPhone(Objects.requireNonNull(phoneTIET.getText()).toString());
             if (result.isEmpty()) {
                 phoneTIL.setError("");
             } else {
                 phoneTIL.setError(formPresenter.getError(result));
+                flag2 = false;
             }
 
-            result = iEntity.setSeverity(Objects.requireNonNull(spinner.getSelectedItem().toString()));
+            if (spinner.getSelectedItem().toString().equals("Elegir...")) {
+                flag2 = false;
+                TextView errorText = (TextView) spinner.getSelectedView();
+                errorText.setTextColor(Color.RED);
+                errorText.setError(getString(R.string.severity_cant_empty));
+
+            } else {
+                iEntity.setSeverity(Objects.requireNonNull(spinner.getSelectedItem().toString()));
+            }
+
+
             if (flag2 && flag) {
                 iEntity.setId(id);
                 formPresenter.onClickSaveButton(iEntity, false);
@@ -512,12 +530,19 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
 
     @Override
     public void showData(IncidencesEntity e) {
+        Log.d(TAG, "loading data...");
         nameTIET.setText(e.getName());
         siteTIET.setText(e.getSite());
         dateTIET.setText(e.getDate());
         phoneTIET.setText(e.getPhone());
         descriptionTIET.setText(e.getDescription());
         switch1.setChecked(e.isResolved());
+        if (e.getImage() != null && !e.getImage().isEmpty()) {
+            byte[] decodedString = Base64.decode(e.getImage(), Base64.DEFAULT);
+            Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 200, 200, false);
+            photo.setImageBitmap(imageScaled);
+        }
     }
 
 
