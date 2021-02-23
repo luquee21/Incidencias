@@ -26,7 +26,7 @@ public class IncidencesTest {
     @Test
     public void incidencesName() {
         assertEquals("", this.incidences.setName("incidences in a roof"));
-        assertEquals("name_bad_format", this.incidences.setName("this is an, incidence with %·!"));
+        assertEquals("name_bad_format", this.incidences.setName("this is an, incidence with %#!"));
         assertEquals("name_bad_format", this.incidences.setName("oh no incidence *$"));
         assertEquals("incidences in a roof", this.incidences.getName());
     }
