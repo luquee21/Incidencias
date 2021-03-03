@@ -67,8 +67,9 @@ public class automatedTest {
     @Test
     public void automatedTest() {
         try {
-            Thread.sleep(3500);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.fab),
@@ -79,10 +80,13 @@ public class automatedTest {
                                 2),
                         isDisplayed()));
         floatingActionButton.perform(click());
+
         try {
-            Thread.sleep(1500);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
         ViewInteraction switch_ = onView(
                 allOf(withId(R.id.switch1), withText("Incidencia resuelta"),
                         childAtPosition(
@@ -196,6 +200,6 @@ public class automatedTest {
                         childAtPosition(
                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                 1)));
-        recyclerView.perform(actionOnItemAtPosition(3, click()));
+        recyclerView.perform(actionOnItemAtPosition(7, click()));
     }
 }
