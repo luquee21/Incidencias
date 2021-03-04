@@ -56,4 +56,5 @@
     <string name="no_search_criteria">"No search criteria "</string>
     <string name="empty_form_fields">Empty form fields</string>
     <string name="severity_cant_empty">Severity can\'t be empty</string>
+    <string name="no_connection">There is no internet connection</string>
 </resources>

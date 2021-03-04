@@ -13,6 +13,8 @@ public interface IFormInterface {
 
         void saveForm();
 
+        void onClickHelp(String url);
+
         void showDialogDeleteForm();
 
         void showDate();
@@ -41,6 +43,8 @@ public interface IFormInterface {
         void onClickDeleteButton();
 
         void onClickDateImageButton();
+
+        void onClickHelp(String url);
 
         void onClickAddOptions();
 

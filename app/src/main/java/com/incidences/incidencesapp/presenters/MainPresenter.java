@@ -31,6 +31,11 @@ public class MainPresenter implements IMainInterface.Presenter {
     }
 
     @Override
+    public void onClickHelp(String url) {
+        view.startWebView(url);
+    }
+
+    @Override
     public void onClickItem(String id) {
         view.onItemClicked(id);
     }

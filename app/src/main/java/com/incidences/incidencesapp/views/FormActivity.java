@@ -77,6 +77,8 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
     private Switch switch1;
     private String id;
     private boolean flag = false;
+    private final String URL = "https://luquee21.github.io/Incidencias/form.html";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -337,6 +339,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
                 break;
             case R.id.helpform:
                 Log.d(TAG, "Help pressed");
+                formPresenter.onClickHelp(URL);
                 break;
 
         }
@@ -398,6 +401,13 @@ public class FormActivity extends AppCompatActivity implements IFormInterface.Vi
         Log.d(TAG, "save form");
         Toast.makeText(this, R.string.save_successfully, Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public void onClickHelp(String url) {
+        Intent i = new Intent(this, WebView.class);
+        i.putExtra("URL", url);
+        startActivity(i);
     }
 
     @Override

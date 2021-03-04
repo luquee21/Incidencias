@@ -57,4 +57,5 @@
     <string name="no_search_criteria">No hay ningún criterio de búsqueda</string>
     <string name="empty_form_fields">Campos del formulario vacío</string>
     <string name="severity_cant_empty">La gravedad de la incidencia no puede estar vací</string>
+    <string name="no_connection">No hay conexión a internet</string>
 </resources>

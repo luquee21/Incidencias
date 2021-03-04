@@ -8,6 +8,9 @@ public interface ISearchInterface {
         void finishSearchActivity();
 
         void showDate();
+
+        void onClickHelp(String url);
+
     }
 
     interface Presenter {
@@ -16,6 +19,8 @@ public interface ISearchInterface {
         void onClickDate();
 
         ArrayList<String> getSeverities();
+
+        void onClickHelp(String url);
     }
 
 }

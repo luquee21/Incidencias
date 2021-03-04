@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
     private RecyclerView recyclerView;
     private TextView results;
     private String severity, date, title;
+    private final String URL = "https://luquee21.github.io/Incidencias/list.html";
 
 
     @Override
@@ -114,7 +115,9 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
             case R.id.search:
                 mainPresenter.onClickSearch();
                 break;
-
+            case R.id.help:
+                mainPresenter.onClickHelp(URL);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -240,6 +243,13 @@ public class MainActivity extends AppCompatActivity implements IMainInterface.Vi
         } else {
             Toast.makeText(getApplicationContext(), R.string.cant_remove, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void startWebView(String url) {
+        Intent i = new Intent(this, WebView.class);
+        i.putExtra("URL", url);
+        startActivity(i);
     }
 
 

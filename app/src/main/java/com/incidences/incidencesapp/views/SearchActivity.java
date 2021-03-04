@@ -41,6 +41,7 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     private ArrayList<String> options;
     private Spinner spinner;
     private EditText title;
+    private final String URL = "https://luquee21.github.io/Incidencias/search.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,13 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     }
 
     @Override
+    public void onClickHelp(String url) {
+        Intent i = new Intent(this, WebView.class);
+        i.putExtra("URL", url);
+        startActivity(i);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
@@ -108,12 +116,12 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
         switch (item.getItemId()) {
             case R.id.helpsearch:
                 Log.d(TAG, "MenuItem help pressed");
+                presenter.onClickHelp(URL);
                 break;
             case android.R.id.home:
                 Log.d(TAG, "Up button pressed");
                 finish();
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }

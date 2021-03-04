@@ -57,6 +57,11 @@ public class FormPresenter implements IFormInterface.Presenter {
     }
 
     @Override
+    public void onClickHelp(String url) {
+        view.onClickHelp(url);
+    }
+
+    @Override
     public void onClickAddOptions() {
         view.showDialogAddOptions();
     }

@@ -17,6 +17,8 @@ public interface IMainInterface {
 
         void swiped(int position);
 
+        void startWebView(String url);
+
     }
 
     interface Presenter {
@@ -25,6 +27,8 @@ public interface IMainInterface {
         void onClickAbout();
 
         void onClickSearch();
+
+        void onClickHelp(String url);
 
         void onClickItem(String id);
 

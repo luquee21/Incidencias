@@ -27,4 +27,9 @@ public class SearchPresenter implements ISearchInterface.Presenter {
     public ArrayList<String> getSeverities() {
         return incidencesModel.getSeverities();
     }
+
+    @Override
+    public void onClickHelp(String url) {
+        view.onClickHelp(url);
+    }
 }
