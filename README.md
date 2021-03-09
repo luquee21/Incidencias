@@ -7,6 +7,8 @@ _La app consiste en almacenar incidencias que vayan ocurriendo sobre algún tema
 * Permite añadir el nivel de gravedad propio de la incidencia
 * Cuenta con una ayuda para la actividad listado, formulario y filtrado
 * Cuenta con filtrado para hacer búsquedas 
+* Permite añadir una imágen de la incidencia
+
 
 ## Instalación
 _Requisitos:_
