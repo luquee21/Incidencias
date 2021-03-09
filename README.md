@@ -1,5 +1,5 @@
 # Incidencias
-_La app consiste en almacenar incidencias que vayan ocurriendo sobre algún tema, por ejemplo sobre una ciudad, indicando los desperfectos y mejoras para que después pueda verlo el ayuntamiento._
+_La app consiste en almacenar incidencias que vayan ocurriendo sobre algún tema, por ejemplo sobre una ciudad, indicando los desperfectos y mejoras._
 
 ## Funcionalidades
 * Permite crear, actualizar, eliminar y listar las incidencias
